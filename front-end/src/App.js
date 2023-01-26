@@ -50,6 +50,33 @@ function App() {
 }
   
 
+// const submitButton = async (e) => {
+//   e.preventDefault();
+//   if(cars.carname === "" || cars.carcolor === "") {
+//    return  alert ("Fill all the inputs")
+//   }else{
+//    try{
+//      const saveCars = await axios.cars(
+//        "http://localhost:4005/cars",
+//          cars,
+//      );
+//     //  getDetails();
+//     //  navigate('/display')
+//      setCars({
+//        carname: "",
+//        carcolor: ""
+//      })
+//      return saveCars;
+     
+//    } catch (error) {
+//      console.log("error", error);
+//    }
+//  }
+   
+//  };
+
+
+
   return (
   <div>
     <form onSubmit={submitButton}>
