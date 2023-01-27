@@ -8,7 +8,7 @@ const carsSchema = mongoose.Schema({
    },
 
    carcolor: {
-      type: [String],
+      type: String,
       require: true
    }
 })

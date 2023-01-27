@@ -8,81 +8,79 @@ function App() {
   });
   const [showData, setShowData] = useState([])
 
-  useEffect(() => {   
-      setTimeout(()=>
-    getData(),1000)
-    }
-  , [])
-
-  const getData = async () => {
-    await axios
-      .get("http://localhost:4005/cars")
-      .then(async (response) => {
-      })
-      .catch((err) => {
-        console.log(err)
-      });
-    };
+  useEffect(() => {
+    getData();
+  }, []);
 
   const handleChange = (e) => {
     setCars({ ...cars, [e.target.name]: e.target.value })
   }
-  console.log('data',showData)
+//   console.log('data',showData)
 
-  const submitButton = e => {
-    e.preventDefault();
-    var retrieveData = [...showData, cars]
+//   const submitButton = e => {
+//     e.preventDefault();
+//     var retrieveData = [...showData, cars]
 
-    console.log(cars)
-    setShowData(retrieveData)
-    console.log('data',showData)
+//     console.log(cars)
+//     setShowData(retrieveData)
+//     console.log('data',showData)
     
 
 
-  axios.post(`https://localhost:4005/car`, { showData }).then(async(response) => {
-    console.log(response)
-    console.log(response.data)
-    response.data()
-  })
-  .catch((err)=>{
-    console.log(err)
-  })
-}
+//   axios.post(`https://localhost:4005/car`, { showData }).then(async(response) => {
+//     console.log(response)
+//     console.log(response.data)
+//     response.data()
+//   })
+//   .catch((err)=>{
+//     console.log(err)
+//   })
+// }
   
 
-// const submitButton = async (e) => {
-//   e.preventDefault();
-//   if(cars.carname === "" || cars.carcolor === "") {
-//    return  alert ("Fill all the inputs")
-//   }else{
-//    try{
-//      const saveCars = await axios.cars(
-//        "http://localhost:4005/cars",
-//          cars,
-//      );
-//     //  getDetails();
-//     //  navigate('/display')
-//      setCars({
-//        carname: "",
-//        carcolor: ""
-//      })
-//      return saveCars;
-     
-//    } catch (error) {
-//      console.log("error", error);
-//    }
-//  }
-   
-//  };
+const submitButton = async (e) => {
+  e.preventDefault();
+// if(cars.carname === ""){
+//   return   alert ("Fill up all the input")
+// }else{
 
+  try {
+    const saveCars = await axios.post(
+      "http://localhost:4005/car",
+        cars,
+        
+    );
+    getData();
+    setCars({
+      carname: "",
+      carcolor: "",
+          })
+    return saveCars
+    
+  } catch (error) {
+    console.log("error", error);
+  }
+// }
+  
+};
 
+const getData = async () => {
+  await axios
+    .get("http://localhost:4005/cars")
+    .then((response) => {
+      const data = response.data;
+      setShowData(data);
+    })
+    .catch(() => {
+    });
+};
 
   return (
   <div>
     <form onSubmit={submitButton}>
 
       <div>
-     <input 
+     <input type="text"
      onChange={handleChange}
      name="carname"
      />
@@ -95,7 +93,7 @@ function App() {
    <option value="Black">Black</option>
    </select>
 
-   <button>Submit</button>
+   <button type="submit" >Submit</button>
  </div>
 
     </form>
